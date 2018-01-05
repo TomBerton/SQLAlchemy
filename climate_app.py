@@ -66,8 +66,8 @@ def precipitation():
     precipitation_data = []
     for prcp_data in results:
         prcp_data_dict = {}
-        prcp_data_dict["date"] = prcp_data.date
-        prcp_data_dict["prcp"] = prcp_data.prcp
+        prcp_data_dict["Date"] = prcp_data.date
+        prcp_data_dict["Precipitation"] = prcp_data.prcp
         precipitation_data.append(prcp_data_dict)
         
 
@@ -84,11 +84,11 @@ def stations():
     all_stations = []
     for stations in results:
         stations_dict = {}
-        stations_dict["station"] = stations.station
-        stations_dict["name"] = stations.name
-        stations_dict["latitude"] = stations.latitude
-        stations_dict["longitude"] = stations.longitude
-        stations_dict["elevation"] = stations.elevation
+        stations_dict["Station"] = stations.station
+        stations_dict["Station Name"] = stations.name
+        stations_dict["Latitude"] = stations.latitude
+        stations_dict["Longitude"] = stations.longitude
+        stations_dict["Elevation"] = stations.elevation
         all_stations.append(stations_dict)
     
     return jsonify(all_stations)
@@ -106,19 +106,17 @@ def tobs():
     temp_data = []
     for tobs_data in results:
         tobs_data_dict = {}
-        tobs_data_dict["station"] = tobs_data.station
-        tobs_data_dict["date"] = tobs_data.date
-        tobs_data_dict["tobs"] = tobs_data.tobs
+        tobs_data_dict["Station"] = tobs_data.station
+        tobs_data_dict["Date"] = tobs_data.date
+        tobs_data_dict["Temperature"] = tobs_data.tobs
         temp_data.append(tobs_data_dict)
     
     return jsonify(temp_data)
     
 @app.route("/api/v1.0/temp/<start>")
-
-    """Return a json list of the minimum temperature, the average temperature, and the 
-        max temperature for a given start date."""
-
 def start_stats(start=None):
+    """Return a json list of the minimum temperature, the average temperature, and the
+    max temperature for a given start date"""
     # Query all the stations and for the given date. 
     results = session.query(func.min(Measurement.tobs), func.max(Measurement.tobs),func.avg(Measurement.tobs)).\
     filter(Measurement.date >= start).all()
@@ -137,10 +135,10 @@ def start_stats(start=None):
     
 
 @app.route("/api/v1.0/temp/<start>/<end>")
-    """Return a json list of the minimum temperature, the average temperature, and the 
-        max temperature for a given start-end date range."""
-
 def calc_stats(start=None, end=None):
+    """Return a json list of the minimum temperature, the average temperature, 
+    and the max temperature for a given start-end date range."""
+    
     # Query all the stations and for the given range of dates. 
     results = session.query(func.min(Measurement.tobs), func.max(Measurement.tobs),func.avg(Measurement.tobs)).\
     filter(Measurement.date >= start).filter(Measurement.date <= end).all()
