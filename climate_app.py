@@ -42,11 +42,17 @@ app = Flask(__name__)
 def welcome():
     """List all available api routes."""
     return (
-        "Available Routes:<br/>"
-        "/api/v1.0/precipitation<br/>"
-        "/api/v1.0/stations<br/>"
-        "/api/v1.0/tobs<br/>"
-        "/api/v1.0/temp/<start><br/>"
+        "Hawaii Precipitation and Weather Data<br/><br/>"
+        "Pick from the available routes below:<br/><br/>"
+        "Precipiation from 2016-08-23 to 2017-08-23.<br/>"
+        "/api/v1.0/precipitation<br/><br/>"
+        "A list of all the weather stations in Hawaii.<br/>"
+        "/api/v1.0/stations<br/><br/>"
+        "The Temperature Observations (tobs) from 2016-08-23 to 2017-08-23.<br/>"
+        "/api/v1.0/tobs<br/><br/>"
+        "Type in a single date (i.e., 2015-01-01) to see the min, max and avg temperature since that date.<br/>"
+        "/api/v1.0/temp/<start><br/><br/>"
+        "Type in a date range (i.e., 2015-01-01/2015-01-10) to see the min, max and avg temperature for that range.<br/>"
         "/api/v1.0/temp/<start>/<end><br/>"
     )
 
